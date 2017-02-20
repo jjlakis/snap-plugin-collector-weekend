@@ -51,9 +51,9 @@ func (f *Weekend) CollectMetrics(mts []plugin.MetricType) ([]plugin.MetricType, 
 	for i := range mts {
 		switch mts[i].Namespace()[2].Value {
 		case "daystillfriday":
-			mts[i].Data_ = 1
+			mts[i].Data_ = (5 - int(time.Now().Weekday()) + 7) % 7
 		case "isitweekend":
-			mts[i].Data_ = "false"
+			mts[i].Data_ = time.Now().Weekday().String() == "Friday"
 		}
 
 		mts[i].Timestamp_ = time.Now()
